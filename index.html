@@ -28,6 +28,13 @@
     .eyebrow { margin: 0 0 7px; color: var(--olive); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; }
     h1 { margin: 0; font-family: "Arial Narrow", "Roboto Condensed", Impact, sans-serif; font-size: clamp(2rem, 6vw, 3.4rem); font-weight: 400; letter-spacing: 0.025em; line-height: 0.95; text-transform: uppercase; }
     .instruction { max-width: 57ch; margin: 12px 0 0; color: rgba(233, 229, 216, 0.82); line-height: 1.5; }
+    .how-to { margin: 24px 0 28px; padding: 16px 0 0; border-top: 1px solid rgba(124, 138, 88, 0.62); }
+    .how-to h2 { margin: 0 0 12px; color: var(--amber); font: 700 0.82rem/1 Consolas, "SFMono-Regular", monospace; letter-spacing: 0.14em; text-transform: uppercase; }
+    .how-to ol { display: grid; grid-template-columns: 0.7fr 1fr 1.12fr 1.8fr 1.7fr; gap: 0; margin: 0; padding: 0; list-style: none; counter-reset: procedure; }
+    .how-to li { min-width: 0; padding: 0 13px; border-left: 1px solid rgba(124, 138, 88, 0.48); color: rgba(233, 229, 216, 0.86); font-size: 0.86rem; line-height: 1.38; counter-increment: procedure; }
+    .how-to li:first-child { padding-left: 0; border-left: 0; }
+    .how-to li::before { display: block; margin-bottom: 6px; color: var(--olive); content: "0" counter(procedure); font: 700 0.7rem/1 Consolas, "SFMono-Regular", monospace; letter-spacing: 0.12em; }
+    kbd { display: inline-block; border: 1px solid rgba(240, 166, 41, 0.72); padding: 0.04em 0.32em; color: var(--bone); background: rgba(240, 166, 41, 0.1); font: 700 0.86em/1.1 Consolas, "SFMono-Regular", monospace; vertical-align: baseline; white-space: nowrap; }
     form { margin: 0; }
     .coordinate-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
     .field { min-width: 0; }
@@ -56,15 +63,25 @@
     .warning { margin: 16px 0 0; padding-left: 12px; border-left: 3px solid var(--fault); color: var(--fault); font-size: 0.86rem; line-height: 1.5; }
     [hidden] { display: none !important; }
     @media (max-width: 560px) {
-      .console { width: min(100% - 24px, 860px); padding-top: 18px; }
-      .masthead { margin-bottom: 16px; }
-      .eyebrow { margin-bottom: 4px; }
-      h1 { font-size: 1.65rem; line-height: 0.9; }
-      .instruction { margin-top: 7px; line-height: 1.35; }
-      .coordinate-fields { grid-template-columns: 1fr; gap: 12px; }
-      .actions { display: grid; grid-template-columns: 1fr 1fr; margin-top: 16px; }
-      button { width: 100%; padding-inline: 8px; }
-      .range-instrument { margin-top: 22px; padding: 24px 18px; }
+      .console { width: min(100% - 24px, 860px); padding-top: 10px; padding-bottom: 28px; }
+      .masthead { margin-bottom: 10px; }
+      .eyebrow { margin-bottom: 2px; font-size: 0.62rem; letter-spacing: 0.11em; }
+      h1 { font-size: 1.42rem; line-height: 0.92; }
+      .instruction { margin-top: 5px; font-size: 0.86rem; line-height: 1.28; }
+      .how-to { margin: 10px 0 12px; padding-top: 8px; }
+      .how-to h2 { margin-bottom: 5px; font-size: 0.74rem; }
+      .how-to ol { grid-template-columns: 1fr; gap: 4px; }
+      .how-to li, .how-to li:first-child { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 5px; padding: 0; border-left: 0; font-size: 0.74rem; line-height: 1.2; }
+      .how-to .step-copy { min-width: 0; }
+      .how-to li::before { margin: 1px 0 0; font-size: 0.66rem; }
+      .how-to li:nth-child(3) { font-size: 0.76rem; line-height: 1.38; letter-spacing: -0.01em; }
+      .coordinate-fields { grid-template-columns: 1fr; gap: 8px; }
+      label { margin-bottom: 4px; font-size: 1rem; }
+      input { min-height: 44px; padding-block: 8px; }
+      .field-help { margin-top: 4px; font-size: 0.72rem; line-height: 1.25; }
+      .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+      button { width: 100%; min-height: 44px; padding-inline: 8px; }
+      .range-instrument { margin-top: 14px; padding: 20px 16px; }
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; } }
   </style>
@@ -76,6 +93,16 @@
       <h1>War Dogs Mortar &amp; Artillery Calculator</h1>
       <p class="instruction">Paste your Self and Target game coordinates. The calculator returns straight-line range in metres.</p>
     </header>
+    <section class="how-to" aria-labelledby="how-to-heading">
+      <h2 id="how-to-heading">How to use</h2>
+      <ol>
+        <li><span class="step-copy">Press <kbd>M</kbd> to open the map.</span></li>
+        <li><span class="step-copy">Right-click and select Mark Coordinates.</span></li>
+        <li><span class="step-copy">Press <kbd>Ctrl+A</kbd> to select the coordinates, then <kbd>Ctrl+C</kbd> to copy them.</span></li>
+        <li><span class="step-copy">Paste the first set into Self Coordinates; repeat the marking and copy process for the target, then paste it into Target Coordinates.</span></li>
+        <li><span class="step-copy">After entering both sets, middle-click the target on the map to aim the mortar. Use this calculator’s output as the mortar range.</span></li>
+      </ol>
+    </section>
     <form novalidate>
       <div class="coordinate-fields">
         <div class="field">
